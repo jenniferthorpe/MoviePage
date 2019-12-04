@@ -1,0 +1,95 @@
+.container {
+  display: grid;
+
+  grid-template-areas:
+    "img h1 h1 h1 h1"
+    "img releaseInfo releaseInfo rating rating"
+    "img overview overview overview overview"
+    "img lang lang icons .";
+  grid-template-rows: 100px 50px auto 50px;
+  grid-template-columns: 200px 1fr 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 20px 40px;
+}
+
+.container:nth-child(even) {
+  background-color: rgba(245, 222, 179, 0.1);
+}
+
+.gridImage {
+  grid-area: img;
+}
+
+.title {
+  grid-area: h1;
+}
+
+.releaseInfo {
+  grid-area: releaseInfo;
+}
+
+.rating {
+  grid-area: rating;
+  justify-self: center;
+  margin-top: -13px;
+  justify-self: center;
+}
+
+.overview {
+  grid-area: overview;
+}
+
+.language {
+  grid-area: lang;
+}
+
+.starDiv {
+  grid-area: icons;
+  justify-self: start;
+}
+
+.watchLaterDiv {
+  grid-area: icons;
+  justify-self: center;
+}
+
+.starDiv .watchLaterDiv {
+  position: relative;
+}
+
+.starDiv .tooltiptextFav {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.watchLaterDiv .tooltiptextwatchLater {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.starDiv:hover .tooltiptextFav {
+  visibility: visible;
+}
+
+.watchLaterDiv:hover .tooltiptextwatchLater {
+  visibility: visible;
+}

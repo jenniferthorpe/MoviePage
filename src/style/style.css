@@ -1,0 +1,105 @@
+
+body {
+  color: wheat;
+  background-color: #400101;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 1.25em;
+}
+
+.colorHref {
+  color: #a65221;
+}
+
+.backBtnSearch{
+  text-decoration: none;
+  color: #a65221;
+  position: relative;
+  top: 30px;
+  font-size: 20px;
+}
+
+
+form,  .withRouter\(SearchAppBar\)-search-11{
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.withRouter\(SearchAppBar\)-title-10 {
+  width: 200px;
+}
+
+.withRouter\(SearchAppBar\)-search-11 {
+  width: 100%;
+    justify-content: flex-end;
+}
+
+.MuiInputBase-root {
+  background-color: rgba(217, 154, 78, .2);
+  color: wheat !important;
+  padding-left: 10px;
+}
+
+
+.MuiGrid-container:nth-child(even) {
+  background-color: rgba(245,222,179,0.1);
+}
+
+.reviewBlock:nth-child(even){
+  background-color: rgba(115,2,2,0.1)
+
+}
+
+.MuiAppBar-positionFixed {
+  position: fixed;
+  top: 0;
+}
+
+.MuiButton-label {
+  color: #D99A4E;
+}
+
+.MuiButton-label:active {
+  color: wheat;
+}
+
+ul.paginationStyle {
+  list-style-type: none;
+  display: inline-flex;
+}
+
+.paginationStyle li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.paginationStyle {
+  width: 100%;
+    justify-content: center;
+    margin: 20px 0px 50px;
+}
+
+*:focus{
+  border: none;
+  outline: none;
+}
+
+.activePage {
+  text-decoration: underline;
+}
+
+.MuiDrawer-paperAnchorLeft {
+  background-color: rgba(0,0,0,0.7) !important;
+  padding-top: 60px;
+  /* height: 220px !important; */
+  border-radius: 0px 0px 130px;
+}
+.MuiButtonBase-root, .MuiListItemIcon-root{
+  color: white !important;
+
+}
+.MuiBackdrop-root {
+
+  background-color: rgba(0, 0, 0, 0.0) !important;
+}
