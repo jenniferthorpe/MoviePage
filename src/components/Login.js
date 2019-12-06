@@ -85,8 +85,6 @@ class Login extends Component {
         if (username && password) {
 
             const { request_token: token } = await TMDBApi.logInToken();
-            console.log(token);
-
             const response = await TMDBApi.logInResponse({ username, password, token });
 
             if (response.status === 200) {
@@ -99,32 +97,29 @@ class Login extends Component {
                     const { results: watchLater } = await TMDBApi.getWatchLater({ sessionID })
 
                     const newObjArr = favorites.map(({
-                        poster_path,
+                        poster_path: posterPath,
                         title,
-                        release_date,
-                        original_language,
-                        vote_count,
-                        vote_average,
+                        release_date: releaseDate,
+                        original_language: originalLanguage,
+                        vote_count: voteCount,
+                        vote_average: voteAvarage,
                         overview,
                         id: movieID,
                     }) => {
                         return {
-                            poster_path,
+                            posterPath,
                             title,
-                            release_date,
-                            original_language,
-                            vote_count,
-                            vote_average,
+                            releaseDate,
+                            originalLanguage,
+                            voteCount,
+                            voteAvarage,
                             overview,
                             movieID,
                             sessionID
                         }
                     })
 
-                    const bulkResponse = MyDb.addFavoritesBulk(newObjArr)
-
-                    console.log(favorites);
-                    console.log(newObjArr);
+                    MyDb.addFavoritesBulk(newObjArr)
 
                     setSessionID(sessionID);
                     setUsername({ username });

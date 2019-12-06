@@ -71,13 +71,13 @@ class MovieCard extends React.Component {
       sessionID,
       favorites: { entities: { favorites } },
       id,
-      lang: original_language,
+      originalLanguage,
       overview,
-      release: release_date,
-      src: poster_path,
+      releaseDate,
+      posterPath,
       title,
-      voteAvg: vote_average,
-      voteNum: vote_count
+      voteAverage,
+      voteCount
     } = this.props;
 
     const movieID = Number(e.currentTarget.dataset.value);
@@ -93,13 +93,13 @@ class MovieCard extends React.Component {
         const newFav = {
           ...favorites,
           [movieID]: {
-            id, original_language, overview, release_date, poster_path, title, vote_average, vote_count
+            id, originalLanguage, overview, releaseDate, posterPath, title, voteAverage, voteCount
           }
         }
         const array = Object.values(newFav)
         setFavorites(array)
         TMDBApi.addFavorite({ sessionID, movieID, bool: true })
-        MyDb.addFavorite({ poster_path, title, release_date, original_language, vote_count, vote_average, overview, movieID, sessionID })
+        MyDb.addFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID })
       }
 
       else if (favorites[movieID].id === movieID) {
@@ -115,18 +115,33 @@ class MovieCard extends React.Component {
     else {
       const newFav = {
         [movieID]: {
-          id, original_language, overview, release_date, poster_path, title, vote_average, vote_count
+          id, originalLanguage, overview, releaseDate, posterPath, title, voteAverage, voteCount
         }
       }
       const array2 = Object.values(newFav)
       setFavorites(array2)
       TMDBApi.addFavorite({ sessionID, movieID, bool: true })
+      MyDb.addFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID })
     }
 
   }
 
   handleWatchLater = async (e) => {
-    const { history, setWatchLater, sessionID, watchLater: { entities: { watchLater } }, id, lang: original_language, overview, release: release_date, src: poster_path, title, voteAvg: vote_average, voteNum: vote_count } = this.props;
+    const {
+      history,
+      setWatchLater,
+      sessionID,
+      watchLater: { entities: { watchLater } },
+      id,
+      originalLanguage,
+      overview,
+      releaseDate,
+      posterPath,
+      title,
+      voteAverage,
+      voteCount
+    } = this.props;
+
     const movieID = Number(e.currentTarget.dataset.value);
 
     if (sessionID === '') {
@@ -140,7 +155,7 @@ class MovieCard extends React.Component {
         const newFav = {
           ...watchLater,
           [movieID]: {
-            id, original_language, overview, release_date, poster_path, title, vote_average, vote_count
+            id, originalLanguage, overview, releaseDate, posterPath, title, voteAverage, voteCount
           }
         }
         const array = Object.values(newFav)
@@ -158,7 +173,7 @@ class MovieCard extends React.Component {
     else {
       const newWatchLater = {
         [movieID]: {
-          id, original_language, overview, release_date, poster_path, title, vote_average, vote_count
+          id, originalLanguage, overview, releaseDate, posterPath, title, voteAverage, voteCount
         }
       }
       const array2 = Object.values(newWatchLater)
@@ -172,20 +187,20 @@ class MovieCard extends React.Component {
 
     const {
       id: movieID,
-      lang,
+      originalLanguage,
       overview,
-      release,
-      src,
+      releaseDate,
+      posterPath,
       title,
-      voteAvg,
+      voteAvgerage,
       watchLater: { entities: { watchLater } },
       favorites: { entities: { favorites } },
     } = this.props;
 
-    let langFullText = lang;
+    let langFullText = originalLanguage;
 
 
-    switch (lang) {
+    switch (originalLanguage) {
       case 'en':
         langFullText = 'english';
         break;
@@ -196,7 +211,7 @@ class MovieCard extends React.Component {
         langFullText = 'spanish';
         break;
       default:
-        langFullText = lang;
+        langFullText = originalLanguage;
         break;
     }
 
@@ -206,7 +221,7 @@ class MovieCard extends React.Component {
         <Link to={{ pathname: `/movies/${movieID}` }} className='gridImage'>
           <div>
             <img
-              src={`https://image.tmdb.org/t/p/w200${src}`}
+              src={`https://image.tmdb.org/t/p/w200${posterPath}`}
               alt="movie"
             />
           </div>
@@ -217,11 +232,11 @@ class MovieCard extends React.Component {
         </Link>
 
         <div className='releaseInfo'>
-          Release Date: {release}
+          Release Date: {releaseDate}
         </div>
 
         <div className='rating'>
-          Avarage rating: <span style={{ fontSize: '32px' }}>{voteAvg}</span>{' '}
+          Avarage rating: <span style={{ fontSize: '32px' }}>{voteAvgerage}</span>{' '}
         </div>
 
         <div className='overview'>

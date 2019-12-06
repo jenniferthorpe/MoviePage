@@ -6,8 +6,8 @@ export class MyDb extends React.Component {
     return MyDb.getFavorites();
   }
 
-  static addFavorite({ poster_path, title, release_date, original_language, vote_count, vote_average, overview, movieID, sessionID }) {
-    return MyDb.postFavorite({ poster_path, title, release_date, original_language, vote_count, vote_average, overview, movieID, sessionID })
+  static addFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID }) {
+    return MyDb.postFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID })
   }
 
   static removeFavorite({ movieID, sessionID }) {
@@ -25,17 +25,17 @@ export class MyDb extends React.Component {
     return fetch('http://localhost:4500/v1/all')
   }
 
-  static async postFavorite({ poster_path, title, release_date, original_language, vote_count, vote_average, overview, movieID, sessionID }) {
+  static async postFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID }) {
     return fetch('http://localhost:4500/v1/new/favorite', {
       method: 'POST',
       body: JSON.stringify(
         {
-          poster_path,
+          posterPath,
           title,
-          release_date,
-          original_language,
-          vote_count,
-          vote_average,
+          releaseDate,
+          originalLanguage,
+          voteCount,
+          voteAverage,
           overview,
           movieID,
           sessionID

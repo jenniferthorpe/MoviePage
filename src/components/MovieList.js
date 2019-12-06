@@ -83,13 +83,13 @@ class MovieList extends React.Component {
         ) => {
           return (
             <MovieCard
-              src={posterPath}
+              posterPath={posterPath}
               title={title}
-              release={releaseDate}
-              lang={originalLanguage}
+              releaseDate={releaseDate}
+              originalLanguage={originalLanguage}
               adult={adult}
-              voteNum={voteCount}
-              voteAvg={voteAverage}
+              voteCount={voteCount}
+              voteAverage={voteAverage}
               overview={overview}
               id={id}
               key={id}

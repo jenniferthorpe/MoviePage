@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
@@ -15,6 +16,7 @@ import Reviews from './Reviews';
 import SimilarMovies from './SimilarMovies';
 import '../style/style.css';
 import { TMDBApi } from './TMDBApi';
+import { MyDb } from './MyDb';
 import { movieSpecificationsAction, setFavoritesAction, setWatchLaterAction } from '../actions/actions'
 
 
@@ -115,8 +117,8 @@ class MovieSpecifications extends React.Component {
     const movieIDNum = Number(movieID);
 
 
-    const { id, genres, adult, runtime, backdrop_path: backdropPath, title, imdbID, release_date: releaseDate } = await TMDBApi.getMovieDetails({ movieID: movieIDNum })
-    setMovieSpecification({ id, genres, adult, runtime, backdropPath, title, movieID: movieIDNum, imdbID, releaseDate });
+    const { id, genres, adult, runtime, backdrop_path: backdropPath, title, imdbID, release_date: releaseDate, original_language: originalLanguage, overview, poster_path: posterPath, vote_average: voteAverage, vote_count: voteCount } = await TMDBApi.getMovieDetails({ movieID: movieIDNum })
+    setMovieSpecification({ id, genres, adult, runtime, backdropPath, title, movieID: movieIDNum, imdbID, releaseDate, originalLanguage, overview, posterPath, voteAverage, voteCount });
   }
 
 
@@ -139,13 +141,14 @@ class MovieSpecifications extends React.Component {
       return;
     }
 
-    const { original_language: originalLanguage,
+    const {
+      originalLanguage,
       overview,
-      release_date: releaseDate,
-      poster_path: posterPath,
+      releaseDate,
+      posterPath,
       title,
-      vote_average: voteAverage,
-      vote_count: voteCount } = movieSpecifications[movieID]
+      voteAverage,
+      voteCount } = movieSpecifications[movieID]
 
 
 
@@ -157,6 +160,8 @@ class MovieSpecifications extends React.Component {
         const array = Object.values(favorites.entities.favorites)
         setFavorites(array)
         TMDBApi.addFavorite({ sessionID, movieID: movieIDNum, bool: false })
+        MyDb.deleteFavorite({ movieID, sessionID })
+
       }
       else {
         const newFav = {
@@ -168,6 +173,7 @@ class MovieSpecifications extends React.Component {
         const array = Object.values(newFav)
         setFavorites(array)
         TMDBApi.addFavorite({ sessionID, movieID: movieIDNum, bool: true })
+        MyDb.addFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID })
       }
     }
 
@@ -181,6 +187,7 @@ class MovieSpecifications extends React.Component {
       const array = Object.values(newFav)
       setFavorites(array)
       TMDBApi.addFavorite({ sessionID, movieID: movieIDNum, bool: true })
+      MyDb.addFavorite({ posterPath, title, releaseDate, originalLanguage, voteCount, voteAverage, overview, movieID, sessionID })
     }
   }
 
@@ -205,13 +212,13 @@ class MovieSpecifications extends React.Component {
       return;
     }
 
-    const { original_language: originalLanguage,
+    const { originalLanguage,
       overview,
-      release_date: releaseDate,
-      poster_path: posterPath,
+      releaseDate,
+      posterPath,
       title,
-      vote_average: voteAverage,
-      vote_count: voteCount } = movieSpecifications[movieID]
+      voteAverage,
+      voteCount } = movieSpecifications[movieID]
 
 
     if (watchLater.entities !== undefined && watchLater.entities.watchLater !== undefined) {
